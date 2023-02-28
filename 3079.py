@@ -2,20 +2,18 @@
 # n 개의 입국 심사대
 # m명 지나가야함 
 
-n , m = map(int, input().split())
+from sys import stdin 
 
-require_times = []
+n, m = map(int, stdin.readline().split())
 
-for i in range(n):
-    require_times.append(int(input()))
-
-require_times = list(require_times)
+require_times = [int(stdin.readline()) for _ in range(n)]
 
 
 
-lt = 0 
-rt =  100000 * 1000000000
-mid = (lt + rt) // 2
+lt = min(require_times)
+rt =  max(require_times) * m 
+
+answer = rt
 
 
 def test(x):
@@ -26,16 +24,16 @@ def test(x):
     return target 
 
 
-final = []
 
 while lt <= rt :
     mid = (lt + rt) // 2
     
     if test(mid) >= m:
-        final.append(mid)   
         rt = mid -1 
+        answer = min(mid,answer)
     elif test(mid) < m: 
         lt = mid + 1 
         
+        
 
-print(min(final))
+print(answer)
